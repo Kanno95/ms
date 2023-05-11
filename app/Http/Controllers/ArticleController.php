@@ -19,26 +19,22 @@ class ArticleController extends Controller{
         return view('home',['sales' => $sales]);   
     }
     //home
-    public function destroy($id){
-        DB::beginTransaction();
+    public function destroy(Request $request){
         
-        try {
-            $article = Sale::find($id);
+        
+        
+            $article = Sale::find($request -> id);
             $article->delete();
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
-            return back();
-        }
         
-        return redirect()->route('home');
+        
+        return response()->json($article);
     }
     //home
     public function search(Request $request){
         $model = new Sale();
         $sales = $model->search($request);
         
-        return view('/home', compact('sales'));
+        return response()->json($sales);
     }
     //home
     public function salesDetail($id){
