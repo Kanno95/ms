@@ -102,7 +102,7 @@ class Sale extends Model{
     }
 
     public function purchase($request){
-        $id = $request -> input('product_id');
+        $id = $request -> id;
         DB::table('sales')->insert([
             'product_id' => $id,
             'created_at' => now(),
