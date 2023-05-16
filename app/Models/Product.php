@@ -43,20 +43,4 @@ class Product extends Model {
             'product_id' => $products_max_id
         ]);
     }
-
-    public function purchase($request){
-        $buy_number = 1;
-        $merchandise = $request -> input('merchandise');
-        $product = DB::table('products') 
-                    -> where('product_name', $merchandise)
-                    -> first();
-                    
-        if ($product->stock < $buy_number) {
-            abort(400, "$merchandise の在庫が不足しています");
-        } else {
-            DB::table('products') 
-            ->where('product_name', $merchandise)
-            ->decrement('stock', intval($buy_number));
-        }
-    }
 }

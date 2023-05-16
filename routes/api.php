@@ -18,5 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('add', [App\Http\Controllers\SalesController::class,'add_record'])->name('add_record');
 Route::get('buy', [App\Http\Controllers\SalesController::class,'purchase'])->name('purchase');

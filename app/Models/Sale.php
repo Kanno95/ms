@@ -101,10 +101,24 @@ class Sale extends Model{
             return $sales;
     }
 
-    public function addition(){
+    public function purchase($request){
+        $id = $request -> input('product_id');
         DB::table('sales')->insert([
+            'product_id' => $id,
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        $buy_number = 1;
+        $product = DB::table('products') 
+                    -> where('id', $id)
+                    -> first();
+                    
+        if ($product->stock < $buy_number) {
+            abort(400, "在庫が不足しています");
+        } else {
+            DB::table('products') 
+            ->where('id', $id)
+            ->decrement('stock', intval($buy_number));
+        }
     }
 }
